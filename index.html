@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAEMONOPIA CARD</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .gradient-bg {
+      background: linear-gradient(45deg, #6b21a8, #9333ea, #c084fc, #6b21a8);
+      background-size: 200% 200%;
+      animation: gradient 10s ease infinite;
+    }
+  </style>
+</head>
+<body class="gradient-bg text-white font-sans">
+  <header class="flex justify-between items-center p-6 bg-purple-900/50 backdrop-blur-md sticky top-0 z-10">
+    <h1 class="text-2xl font-bold">DAEMONOPIA</h1>
+    <nav>
+      <a href="#about" class="mx-4 hover:text-purple-300 transition">About</a>
+      <a href="#projects" class="mx-4 hover:text-purple-300 transition">Projects</a>
+      <a href="#contact" class="mx-4 hover:text-purple-300 transition">Contact</a>
+    </nav>
+  </header>
+
+  <section class="min-h-screen flex flex-col justify-center items-center text-center px-6">
+    <h2 class="text-5xl md:text-7xl font-extrabold mb-4">Kia ora, I'm Daemon.</h2>
+    <p class="text-xl md:text-2xl max-w-2xl mb-6">A coder, designer, and music composer and top tier Tyler, The Creator glazer.</p>
+    <a href="#about" class="bg-purple-500 px-6 py-3 rounded-full text-lg hover:bg-purple-400 transition">Get to Know Me</a>
+  </section>
+
+  <section id="about" class="py-20 px-6 max-w-4xl mx-auto">
+    <h3 class="text-4xl font-bold mb-8 text-center">About Me</h3>
+    <p class="text-lg mb-6">I'm a coder with a passion for creating things that spark joy. I love blending tech and creativity to build experiences that feel alive.</p>
+    <p class="text-lg">When I'm not coding or designing, you can find me playing Team Fortress 2, or at school.</p>
+	<p class="text-lg">I'm from New Zealand, my favourite colour is purple and my favourite food is mince & cheese pie.</p>
+  </section>
+
+  <section id="projects" class="py-20 px-6 bg-purple-800/30">
+    <h3 class="text-4xl font-bold mb-8 text-center">My Projects</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      <div class="bg-purple-900/50 p-6 rounded-lg hover:scale-105 transition">
+        <h4 class="text-2xl font-semibold mb-2">Project One</h4>
+        <p>A cool FMstation I made for listening to music (Without ADs!). It’s got all the vibes and some serious functionality. (2k+ lines of code dumped into it btw)</p>
+        <button onclick="openModal('images/project1.png')" class="text-purple-300 hover:text-purple-100">Check it out</button>
+      </div>
+      <div class="bg-purple-900/50 p-6 rounded-lg hover:scale-105 transition">
+        <h4 class="text-2xl font-semibold mb-2">Project Two</h4>
+        <p>Mods for TF2 that I poured my heart into. Unfortunately, i dont have these anymore because they're on my broken PC.</p>
+      </div>
+    </div>
+  </section>
+  
+ <section id="songs" class="py-20 px-6 max-w-4xl mx-auto">
+    <h3 class="text-4xl font-bold mb-8 text-center">My Top 10 Favorite Songs</h3>
+    <div class="space-y-4">
+      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
+        <div class="relative group">
+          <img src="images/chromakopia.jpg" alt="Album 1" class="w-16 h-16 rounded mr-4">
+        </div>
+        <p class="text-lg">1. Mother - Tyler, The Creator</p>
+      </div>
+      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
+        <div class="relative group">
+          <img src="images/chromakopia.jpg" alt="Album 2" class="w-16 h-16 rounded mr-4">
+        </div>
+        <p class="text-lg">2. Judge Judy - Tyler, The Creator</p>
+      </div>
+      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
+        <div class="relative group">
+          <img src="images/chromakopia.jpg" alt="Album 3" class="w-16 h-16 rounded mr-4">
+        </div>
+        <p class="text-lg">3. Sticky - Tyler, The Creator</p>
+      </div>
+      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
+        <div class="relative group">
+          <img src="images/maadcity.jpg" alt="Album 4" class="w-16 h-16 rounded mr-4">
+        </div>
+        <p class="text-lg">4. Compton - Kendrick Lamar</p>
+      </div>
+      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
+        <div class="relative group">
+          <img src="images/goblin.jpg" alt="Album 5" class="w-16 h-16 rounded mr-4">
+        </div>
+        <p class="text-lg">5. Analog - Tyler, The Creator</p>
+      </div>
+      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
+        <div class="relative group">
+          <img src="images/dttg.jpg" alt="Album 6" class="w-16 h-16 rounded mr-4">
+        </div>
+        <p class="text-lg">6. Dont You Worry Baby - Tyler, The Creator</p>
+      </div>
+      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
+        <div class="relative group">
+          <img src="images/madvillainy.jpg" alt="Album 7" class="w-16 h-16 rounded mr-4">
+        </div>
+        <p class="text-lg">7. Raid - MF DOOM & Madvillain</p>
+      </div>
+      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
+        <div class="relative group">
+          <img src="images/dttg.jpg" alt="Album 8" class="w-16 h-16 rounded mr-4">
+        </div>
+        <p class="text-lg">8. I'll Take Care Of You - Tyler, The Creator</p>
+      </div>
+      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
+        <div class="relative group">
+          <img src="images/flowerboy.jpg" alt="Album 9" class="w-16 h-16 rounded mr-4">
+        </div>
+        <p class="text-lg">9. Boredom - Tyler, The Creator</p>
+      </div>
+      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
+        <div class="relative group">
+          <img src="images/gnx.jpg" alt="Album 10" class="w-16 h-16 rounded mr-4">
+        </div>
+        <p class="text-lg">10. gloria - Kendrick Lamar</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="py-20 px-6 text-center">
+    <h3 class="text-4xl font-bold mb-8">Get in Touch</h3>
+    <p class="text-lg max-w-xl mx-auto mb-6">Want to say hi? Reach out on socials!</p>
+    <div class="flex justify-center space-x-4">
+      <a href="https://steamcommunity.com/id/daetronic/" class="text-purple-200 hover:text-purple-100">Steam</a>
+      <a href="https://www.roblox.com/users/3817071736/profile" class="text-purple-200 hover:text-purple-100">Roblox</a>
+	  <a href="https://github.com/Daetronic" class="text-purple-200 hover:text-purple-100">Github</a>
+    </div>
+  </section>
+
+  <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center hidden z-20">
+    <div class="relative bg-purple-900/90 p-6 rounded-lg max-w-3xl w-full">
+      <button onclick="closeModal()" class="absolute top-2 right-2 text-white hover:text-purple-300">✕</button>
+      <img id="modalImage" src="" alt="Project Preview" class="w-full h-auto rounded">
+    </div>
+  </div>
+
+  <footer class="p-6 text-center bg-purple-900/50">
+    <p>&copy; 2025 Daemon 💜</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    function openModal(imagePath) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = imagePath;
+      modal.classList.remove('hidden');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.add('hidden');
+    }
+
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+	  
+    });
+  </script>
+</body>
+</html>
