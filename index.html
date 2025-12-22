@@ -6,177 +6,394 @@
   <title>DAEMONOPIA CARD</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Futura:wght@700&display=swap" rel="stylesheet">
   <style>
-    @keyframes gradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    body {
+      background-color: #f9efce;
+      color: #000;
+      font-family: 'Courier Prime', monospace;
+      overflow-x: hidden;
+      position: relative;
     }
-    .gradient-bg {
-      background: linear-gradient(45deg, #6b21a8, #9333ea, #c084fc, #6b21a8);
-      background-size: 200% 200%;
-      animation: gradient 10s ease infinite;
+    .passport-border {
+      border: 8px double #000;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    .stamp-text {
+      font-family: 'Futura', sans-serif;
+      font-weight: bold;
+      letter-spacing: 2px;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 3rem;
+      color: #68c9d2;
+    }
+    .left-stamp {
+      left: 1rem;
+      transform: rotate(180deg) translateY(50%);
+    }
+    .right-stamp {
+      right: 1rem;
+      transform: rotate(0) translateY(-50%);
+    }
+    .accent-pink { color: #f8c1bf; }
+    .typewriter { font-family: 'Courier Prime', monospace; }
+    .bold-title {
+      font-family: 'Futura', sans-serif;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+    .section-card {
+      background-color: rgba(255, 255, 255, 0.85);
+      border: 2px solid #000;
+    }
+    .accent-teal { color: #68c9d2; }
+    .accent-green { color: #c2e0bc; }
+    .accent-yellow { color: #e2be5e; }
+    h1, h2, h3, h4 {
+      font-family: 'Futura', sans-serif;
+      text-transform: uppercase;
+    }
+    .star {
+      position: absolute;
+      font-size: 2rem;
+      color: #e2be5e;
+      z-index: -1;
+    }
+
+    /* Background stars - fixed, only ★, colorful, bigger, gentle float */
+    .bg-star {
+      position: fixed;
+      opacity: 0.7;
+      pointer-events: none;
+      animation: gentleFloat 18s infinite ease-in-out;
+      z-index: 0;
+    }
+
+    @keyframes gentleFloat {
+      0% { transform: translateY(0) translateX(0) rotate(0deg); }
+      50% { transform: translateY(-40px) translateX(25px) rotate(12deg); }
+      100% { transform: translateY(0) translateX(0) rotate(0deg); }
+    }
+
+    #welcome-screen, #intro {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      flex-direction: column;
+      text-align: center;
+      padding: 2rem;
+    }
+    #welcome-screen {
+      background-color: #000;
+      color: #fff;
+      font-size: 2.5rem;
+    }
+    #intro {
+      background-color: #000;
+      color: #fff;
+      font-size: 3rem;
+    }
+    #lyrics {
+      max-width: 90%;
+      line-height: 1.4;
+    }
+    .lyric-animation {
+      opacity: 0;
+      animation-duration: 1.5s;
+      animation-fill-mode: forwards;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes zoomIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: translateY(0); } }
+
+    .last-lyric {
+      font-size: 7.5rem !important;
+      line-height: 1;
+    }
+
+    #main-content { display: none; }
+    button#send-passport {
+      margin-top: 3rem;
+      padding: 1rem 2.5rem;
+      font-size: 1.8rem;
+      font-family: 'Futura', sans-serif;
+      text-transform: uppercase;
+      background: #68c9d2;
+      color: #000;
+      border: 4px double #000;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    button#send-passport:hover {
+      background: #f8c1bf;
+      transform: scale(1.05);
     }
   </style>
 </head>
-<body class="gradient-bg text-white font-sans">
-  <header class="flex justify-between items-center p-6 bg-purple-900/50 backdrop-blur-md sticky top-0 z-10">
-    <h1 class="text-2xl font-bold">DAEMONOPIA</h1>
-    <nav>
-      <a href="#about" class="mx-4 hover:text-purple-300 transition">About</a>
-      <a href="#projects" class="mx-4 hover:text-purple-300 transition">Projects</a>
-      <a href="#contact" class="mx-4 hover:text-purple-300 transition">Contact</a>
-    </nav>
-  </header>
+<body class="min-h-screen py-12 px-4">
 
-  <section class="min-h-screen flex flex-col justify-center items-center text-center px-6">
-    <h2 class="text-5xl md:text-7xl font-extrabold mb-4">Kia ora, I'm Daemon.</h2>
-    <p class="text-xl md:text-2xl max-w-2xl mb-6">A coder, designer, music composer and top tier Tyler, The Creator glazer.</p>
-    <a href="#about" class="bg-purple-500 px-6 py-3 rounded-full text-lg hover:bg-purple-400 transition">Get to Know Me</a>
-  </section>
+  <!-- cool background stars (fixed) -->
+  <div class="bg-star" style="top: 8%; left: 12%; font-size: 2.8rem; color: #68c9d2; animation-delay: 0s;">★</div>
+  <div class="bg-star" style="top: 15%; left: 75%; font-size: 3.2rem; color: #f8c1bf; animation-delay: 2s;">★</div>
+  <div class="bg-star" style="top: 25%; left: 5%; font-size: 2.5rem; color: #c2e0bc; animation-delay: 4s;">★</div>
+  <div class="bg-star" style="top: 35%; left: 85%; font-size: 3rem; color: #e2be5e; animation-delay: 1s;">★</div>
+  <div class="bg-star" style="top: 45%; left: 20%; font-size: 2.7rem; color: #68c9d2; animation-delay: 6s;">★</div>
+  <div class="bg-star" style="top: 55%; left: 65%; font-size: 3.4rem; color: #f8c1bf; animation-delay: 3s;">★</div>
+  <div class="bg-star" style="top: 65%; left: 10%; font-size: 2.9rem; color: #c2e0bc; animation-delay: 8s;">★</div>
+  <div class="bg-star" style="top: 75%; left: 80%; font-size: 3.1rem; color: #e2be5e; animation-delay: 5s;">★</div>
+  <div class="bg-star" style="top: 20%; left: 45%; font-size: 2.6rem; color: #68c9d2; animation-delay: 7s;">★</div>
+  <div class="bg-star" style="top: 50%; left: 90%; font-size: 3.3rem; color: #f8c1bf; animation-delay: 9s;">★</div>
+  <div class="bg-star" style="top: 10%; left: 55%; font-size: 2.8rem; color: #c2e0bc; animation-delay: 2.5s;">★</div>
+  <div class="bg-star" style="top: 85%; left: 30%; font-size: 3rem; color: #e2be5e; animation-delay: 4.5s;">★</div>
+  <div class="bg-star" style="top: 30%; left: 65%; font-size: 2.9rem; color: #68c9d2; animation-delay: 6.5s;">★</div>
+  <div class="bg-star" style="top: 70%; left: 40%; font-size: 3.2rem; color: #f8c1bf; animation-delay: 1.5s;">★</div>
+  <div class="bg-star" style="top: 40%; left: 8%; font-size: 2.7rem; color: #c2e0bc; animation-delay: 8.5s;">★</div>
 
-  <section id="about" class="py-20 px-6 max-w-4xl mx-auto">
-    <h3 class="text-4xl font-bold mb-8 text-center">About Me</h3>
-    <p class="text-lg mb-6">I'm a coder that codes things. yknow? i use HTML, CSS, and Javascript. I also make videos for fun.</p>
-    <p class="text-lg">When I'm not coding or designing, you can find me playing Team Fortress 2, or at school.</p>
-	<p class="text-lg">I'm from New Zealand, my favourite colour is purple and my favourite food is mince & cheese pie.</p>
-  </section>
+  <div class="stamp-text left-stamp">CALL ME IF YOU GET LOST</div>
+  <div class="stamp-text right-stamp accent-pink">DAEMONOPIA CARD</div>
 
-  <section id="projects" class="py-20 px-6 bg-purple-800/30">
-    <h3 class="text-4xl font-bold mb-8 text-center">My Projects</h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-      <div class="bg-purple-900/50 p-6 rounded-lg hover:scale-105 transition">
-        <h4 class="text-2xl font-semibold mb-2">Project One</h4>
-        <p>A cool FMstation I made for listening to music (Without ADs!). It’s got all the vibes and some serious functionality. (5k+ lines of code dumped into it btw)</p>
-        <button onclick="openModal('images/project1.png')" class="text-purple-300 hover:text-purple-100">Check it out</button>
-      </div>
-      <div class="bg-purple-900/50 p-6 rounded-lg hover:scale-105 transition">
-        <h4 class="text-2xl font-semibold mb-2">Project Two</h4>
-        <p>Mods for TF2 that I poured my heart into. Unfortunately, i dont have these anymore because they're on my broken PC.</p>
-      </div>
+  <!-- bootup -->
+  <div id="welcome-screen">
+    <div class="typewriter">
+      <p>Daemonopia Personal Card</p>
+      <p class="mt-8 text-xl">Thanks for showing up, i made an intro with my favourite song!</p>
     </div>
-  </section>
-  
- <section id="songs" class="py-20 px-6 max-w-4xl mx-auto">
-    <h3 class="text-4xl font-bold mb-8 text-center">My Top 10 Favorite Songs</h3>
-    <div class="space-y-4">
-      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
-        <div class="relative group">
-          <img src="images/chromakopia.jpg" alt="Album 1" class="w-16 h-16 rounded mr-4">
-        </div>
-        <p class="text-lg">1. Judge Judy - Tyler, The Creator</p>
-      </div>
-      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
-        <div class="relative group">
-          <img src="images/mmatbs.jpg" alt="Album 2" class="w-16 h-16 rounded mr-4">
-        </div>
-        <p class="text-lg">2. Savior - Kendrick Lamar</p>
-      </div>
-      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
-        <div class="relative group">
-          <img src="images/tpab.jpg" alt="Album 3" class="w-16 h-16 rounded mr-4">
-        </div>
-        <p class="text-lg">3. You Ain’t Gotta Lie (Momma Said) - Kendrick Lamar</p>
-      </div>
-      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
-        <div class="relative group">
-          <img src="images/of2.jpg" alt="Album 4" class="w-16 h-16 rounded mr-4">
-        </div>
-        <p class="text-lg">4. Analog 2 - Odd Future</p>
-      </div>
-      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
-        <div class="relative group">
-          <img src="images/of2.jpg" alt="Album 5" class="w-16 h-16 rounded mr-4">
-        </div>
-        <p class="text-lg">5. Sam (Is Dead) - Odd Future</p>
-      </div>
-      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
-        <div class="relative group">
-          <img src="images/mmfooddeluxe.jpg" alt="Album 6" class="w-16 h-16 rounded mr-4">
-        </div>
-        <p class="text-lg">6. Kookies - MF DOOM</p>
-      </div>
-      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
-        <div class="relative group">
-          <img src="images/madvillainy.jpg" alt="Album 7" class="w-16 h-16 rounded mr-4">
-        </div>
-        <p class="text-lg">7. Raid - MF DOOM & Madvillain</p>
-      </div>
-      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
-        <div class="relative group">
-          <img src="images/dttg.jpg" alt="Album 8" class="w-16 h-16 rounded mr-4">
-        </div>
-        <p class="text-lg">8. Ring Ring Ring - Tyler, The Creator</p>
-      </div>
-      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
-        <div class="relative group">
-          <img src="images/tpab.jpg" alt="Album 9" class="w-16 h-16 rounded mr-4">
-        </div>
-        <p class="text-lg">9. These Walls - Kendrick Lamar</p>
-      </div>
-      <div class="bg-purple-900/50 p-4 rounded-lg flex items-center">
-        <div class="relative group">
-          <img src="images/gnx.jpg" alt="Album 10" class="w-16 h-16 rounded mr-4">
-        </div>
-        <p class="text-lg">10. squabble up - Kendrick Lamar</p>
-      </div>
-    </div>
-  </section>
+    <button id="send-passport">Send the passport</button>
+  </div>
 
-  <section id="contact" class="py-20 px-6 text-center">
-    <h3 class="text-4xl font-bold mb-8">Get in Touch</h3>
-    <p class="text-lg max-w-xl mx-auto mb-6">Want to say hi? Reach out on socials!</p>
-    <div class="flex justify-center space-x-4">
-      <a href="https://steamcommunity.com/id/daetronic/" class="text-purple-200 hover:text-purple-100">Steam</a>
-      <a href="https://www.roblox.com/users/3817071736/profile" class="text-purple-200 hover:text-purple-100">Roblox</a>
-	  <a href="https://github.com/Daetronic" class="text-purple-200 hover:text-purple-100">Github</a>
-    </div>
-  </section>
+  <!-- startup intro -->
+  <div id="intro" style="display: none;">
+    <div id="lyrics" class="typewriter"></div>
+  </div>
 
-  <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center hidden z-20">
-    <div class="relative bg-purple-900/90 p-6 rounded-lg max-w-3xl w-full">
-      <button onclick="closeModal()" class="absolute top-2 right-2 text-white hover:text-purple-300">✕</button>
-      <img id="modalImage" src="" alt="Project Preview" class="w-full h-auto rounded">
+  <!-- bg music -->
+  <audio id="song" loop>
+    <source src="music/sns.mp3" type="audio/mpeg">
+  </audio>
+
+  <div id="main-content" class="max-w-4xl mx-auto passport-border bg-white/95 p-12 rounded-lg relative">
+    <!-- boring yellow stars around the card -->
+    <div class="star" style="top: -20px; left: -20px;">★</div>
+    <div class="star" style="top: -20px; right: -20px;">★</div>
+    <div class="star" style="bottom: -20px; left: -20px;">★</div>
+    <div class="star" style="bottom: -20px; right: -20px;">★</div>
+    <div class="star" style="top: 50%; left: -30px; transform: translateY(-50%);">★</div>
+    <div class="star" style="top: 50%; right: -30px; transform: translateY(-50%);">★</div>
+    <div class="star" style="top: -30px; left: 50%; transform: translateX(-50%);">★</div>
+    <div class="star" style="bottom: -30px; left: 50%; transform: translateX(-50%);">★</div>
+
+    <header class="text-center mb-12 border-b-4 border-dashed pb-8">
+      <h1 class="text-6xl bold-title mb-2">DAEMONOPIA</h1>
+      <p class="text-2xl typewriter">Personal Identification Card</p>
+      <p class="text-lg typewriter mt-4">Issued: 2025 | New Zealand</p>
+    </header>
+
+    <section class="text-center mb-16">
+      <h2 class="text-5xl bold-title mb-4">KIA ORA, I'M DAEMON.</h2>
+      <p class="text-2xl typewriter max-w-2xl mx-auto">A coder, designer, music composer and top tier Tyler, The Creator glazer.</p>
+      <nav class="mt-8 space-x-8 text-xl">
+        <a href="#about" class="hover:accent-teal transition">About</a>
+        <a href="#projects" class="hover:accent-teal transition">Projects</a>
+        <a href="#songs" class="hover:accent-teal transition">Top Songs</a>
+        <a href="#contact" class="hover:accent-teal transition">Contact</a>
+      </nav>
+    </section>
+
+    <section id="about" class="section-card p-8 mb-12">
+      <h3 class="text-4xl bold-title text-center mb-8 accent-green">About Me</h3>
+      <p class="text-lg typewriter leading-relaxed">I make websites, scripts, and also make mods for tf2.</p>
+      <p class="text-lg typewriter leading-relaxed mt-4">When I'm not doing much, you can find me playing Team Fortress 2, or at school.</p>
+      <p class="text-lg typewriter leading-relaxed mt-4">I'm from New Zealand, my favourite colour is purple and my favourite food is mince & cheese pie.</p>
+    </section>
+
+    <section id="projects" class="section-card p-8 mb-12">
+      <h3 class="text-4xl bold-title text-center mb-8 accent-yellow">My Projects</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="border-2 border-black p-6">
+          <h4 class="text-2xl bold-title mb-4">Project One</h4>
+          <p class="typewriter">A cool FMstation I made for listening to music (NO ADS WOOOOOOO). It’s got all the vibes and some serious functionality. (5k+ lines of code)</p>
+          <button onclick="openModal('images/project1.png')" class="mt-4 text-lg underline hover:accent-pink">Check it out →</button>
+        </div>
+        <div class="border-2 border-black p-6">
+          <h4 class="text-2xl bold-title mb-4">Project Two</h4>
+          <p class="typewriter">Mods for TF2, i love making these when i have time to waste.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="songs" class="section-card p-8 mb-12">
+      <h3 class="text-4xl bold-title text-center mb-8 accent-teal">My Top 10 Favorite Songs</h3>
+      <div class="space-y-6">
+        <div class="flex items-center border-b border-black pb-4">
+          <img src="images/estatesale.jpg" alt="Album" class="w-20 h-20 mr-6 border-2 border-black">
+          <p class="text-xl typewriter">1. SORRY NOT SORRY - Tyler, The Creator</p>
+        </div>
+        <div class="flex items-center border-b border-black pb-4">
+          <img src="images/chromakopia.jpg" alt="Album" class="w-20 h-20 mr-6 border-2 border-black">
+          <p class="text-xl typewriter">2. Judge Judy - Tyler, The Creator</p>
+        </div>
+        <div class="flex items-center border-b border-black pb-4">
+          <img src="images/dttg.jpg" alt="Album" class="w-20 h-20 mr-6 border-2 border-black">
+          <p class="text-xl typewriter">3. Sugar On My Tounge - Tyler, The Creator</p>
+        </div>
+        <div class="flex items-center border-b border-black pb-4">
+          <img src="images/gnx.jpg" alt="Album" class="w-20 h-20 mr-6 border-2 border-black">
+          <p class="text-xl typewriter">4. heart pt. 6 - Kendrick Lamar</p>
+        </div>
+        <div class="flex items-center border-b border-black pb-4">
+          <img src="images/mmatbs.jpg" alt="Album" class="w-20 h-20 mr-6 border-2 border-black">
+          <p class="text-xl typewriter">5. Savior - Kendrick Lamar</p>
+        </div>
+        <div class="flex items-center border-b border-black pb-4">
+          <img src="images/dttg.jpg" alt="Album" class="w-20 h-20 mr-6 border-2 border-black">
+          <p class="text-xl typewriter">6. Dont You Worry Baby - Tyler, The Creator</p>
+        </div>
+        <div class="flex items-center border-b border-black pb-4">
+          <img src="images/madvillainy.jpg" alt="Album" class="w-20 h-20 mr-6 border-2 border-black">
+          <p class="text-xl typewriter">7. Raid - MF DOOM & Madvillain</p>
+        </div>
+        <div class="flex items-center border-b border-black pb-4">
+          <img src="images/mmatbs.jpg" alt="Album" class="w-20 h-20 mr-6 border-2 border-black">
+          <p class="text-xl typewriter">8. United In Grief - Tyler, The Creator</p>
+        </div>
+        <div class="flex items-center border-b border-black pb-4">
+          <img src="images/flowerboy.jpg" alt="Album" class="w-20 h-20 mr-6 border-2 border-black">
+          <p class="text-xl typewriter">9. Boredom - Tyler, The Creator</p>
+        </div>
+        <div class="flex items-center border-b border-black pb-4">
+          <img src="images/maadcity.jpg" alt="Album" class="w-20 h-20 mr-6 border-2 border-black">
+          <p class="text-xl typewriter">10. Money Trees - Kendrick Lamar</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="text-center section-card p-8">
+      <h3 class="text-4xl bold-title mb-8 accent-pink">Get in Touch</h3>
+      <p class="text-xl typewriter mb-8">Want to say hi? Reach out on socials!</p>
+      <div class="space-x-8 text-xl">
+        <a href="https://steamcommunity.com/id/daetronic/" class="underline hover:accent-teal">Steam</a>
+        <a href="https://www.roblox.com/users/3817071736/profile" class="underline hover:accent-teal">Roblox</a>
+        <a href="https://github.com/Daetronic" class="underline hover:accent-teal">Github</a>
+      </div>
+    </section>
+
+    <footer class="text-center mt-12 pt-8 border-t-4 border-dashed">
+      <p class="typewriter text-lg">© 2025 Daemon 💜 | CALL ME IF YOU GET LOST</p>
+    </footer>
+  </div>
+
+  <div id="imageModal" class="fixed inset-0 bg-black/80 flex items-center justify-center hidden z-50">
+    <div class="relative bg-white p-8 rounded-lg max-w-4xl w-full">
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-3xl">✕</button>
+      <img id="modalImage" src="" alt="Project Preview" class="w-full h-auto">
     </div>
   </div>
 
-  <footer class="p-6 text-center bg-purple-900/50">
-    <p>&copy; 2025 Daemon 💜</p>
-  </footer>
-
   <script>
+    // smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
       });
     });
 
     function openModal(imagePath) {
-      const modal = document.getElementById('imageModal');
-      const modalImage = document.getElementById('modalImage');
-      modalImage.src = imagePath;
-      modal.classList.remove('hidden');
+      document.getElementById('modalImage').src = imagePath;
+      document.getElementById('imageModal').classList.remove('hidden');
     }
-
     function closeModal() {
-      const modal = document.getElementById('imageModal');
-      modal.classList.add('hidden');
+      document.getElementById('imageModal').classList.add('hidden');
+    }
+    document.getElementById('imageModal').addEventListener('click', e => {
+      if (e.target === e.currentTarget) closeModal();
+    });
+
+    // intro logic crap
+    const welcomeScreen = document.getElementById('welcome-screen');
+    const intro = document.getElementById('intro');
+    const audio = document.getElementById('song');
+    const mainContent = document.getElementById('main-content');
+    const lyricsElem = document.getElementById('lyrics');
+
+    const lyricSequence = [
+      { text: "...", duration: 9800 },
+      { text: "Pardon me,", duration: 2470 },
+      { text: "excusez-moi!", duration: 2700 },
+      { text: "Im sorry..", duration: 2250 },
+      { text: "Yeah i could've made a better choice.", duration: 3110 },
+      { text: "I mean, what the fuck?", duration: 2940 },
+      { text: "IM SORRY", duration: 3360 },
+      { text: "IM FUCKING SORRYYY!!", duration: 2500 },
+    ];
+
+    const maxLyricsToShow = lyricSequence.length;
+
+    const animations = ['fadeIn', 'zoomIn', 'slideUp'];
+    let currentAnimIndex = 0;
+    let currentIndex = 0;
+
+    function showNextLyric() {
+      if (currentIndex >= maxLyricsToShow) {
+        startOutro();
+        return;
+      }
+
+      const line = lyricSequence[currentIndex];
+      const isLast = currentIndex === maxLyricsToShow - 1;
+
+      const anim = animations[currentAnimIndex % animations.length];
+
+      lyricsElem.textContent = line.text;
+      lyricsElem.className = 'lyric-animation';
+      lyricsElem.style.animationName = anim;
+
+      if (isLast) {
+        lyricsElem.classList.add('last-lyric');
+      } else {
+        lyricsElem.classList.remove('last-lyric');
+      }
+
+      currentAnimIndex++;
+      currentIndex++;
+
+      setTimeout(showNextLyric, line.duration);
     }
 
-    document.getElementById('imageModal').addEventListener('click', function(e) {
-      if (e.target === this) {
-        closeModal();
-      }
-	  //hi, if you found this easter egg, start digging in yo butt twinn
+    function startOutro() {
+      intro.style.transition = 'opacity 2s ease-out';
+      intro.style.opacity = '0';
+
+      setTimeout(() => {
+        intro.style.display = 'none';
+        mainContent.style.display = 'block';
+        document.body.style.overflow = 'auto';
+
+        let vol = 1.0;
+        const fade = setInterval(() => {
+          vol = Math.max(vol - 0.04, 0.2);
+          audio.volume = vol;
+          if (vol <= 0.2) clearInterval(fade);
+        }, 400);
+      }, 2000);
+    }
+
+    document.getElementById('send-passport').addEventListener('click', () => {
+      welcomeScreen.style.display = 'none';
+      intro.style.display = 'flex';
+      audio.play();
+      showNextLyric();
     });
   </script>
 </body>
 </html>
-
-
-
-
-
