@@ -80,14 +80,15 @@
 </head>
 <body>
 
-  <div id="video-background">
+<div id="video-background">
     <iframe 
       id="bg-video"
-      src="https://www.youtube.com/embed/VU8V24kuBuU?autoplay=1&start=53&loop=1&playlist=VU8V24kuBuU&controls=0&modestbranding=1&rel=0&iv_load_policy=3"
+      src="https://www.youtube.com/embed/VU8V24kuBuU?autoplay=1&start=53&loop=1&playlist=VU8V24kuBuU&controls=0&modestbranding=1&rel=0&iv_load_policy=3" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen>
     </iframe>
   </div>
-
+  
   <div id="overlay" class="overlay">
     <div class="text-6xl bold-title tracking-widest mb-4 text-yellow-300">DAEMONOPIA</div>
     <p class="text-3xl mb-12 text-pink-300">Baby Keem - Ca$ino</p>
@@ -219,6 +220,13 @@
       }, 1500);
     }
 
+    window.addEventListener('load', () => {
+      const iframe = document.getElementById('bg-video');
+      setTimeout(() => {
+        iframe.src += "&autoplay=1";
+      }, 1500);
+    });
+    
     overlay.addEventListener('click', startSite);
     document.getElementById('continue-btn').addEventListener('click', (e) => {
       e.stopPropagation();
